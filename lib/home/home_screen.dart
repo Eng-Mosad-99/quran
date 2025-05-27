@@ -94,7 +94,13 @@ List<Widget> tabsBodyList = [
               ],
             ),
           ),
-          body: tabsBodyList[_selectedIndex],
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(AppAssets.logo),
+              Expanded(child: tabsBodyList[_selectedIndex]),
+            ],
+          ),
         ),
       ],
     );

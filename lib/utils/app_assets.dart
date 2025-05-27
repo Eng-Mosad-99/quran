@@ -11,4 +11,9 @@ class AppAssets {
   static const String iconSebha = 'assets/images/icon_sebha.png';
   static const String iconRadio = 'assets/images/icon_radio.png';
   static const String iconTimer = 'assets/images/icon_timer.png';
+  static const String logo = 'assets/images/Logo.png';
+  static const String searchIcon ='assets/images/search_icon.png';
+  static const String mostRecentlyImg = 'assets/images/most_recently_img.png';
+  static const String suraNumberVector = 'assets/images/sura_number_vector.png';
+
 }
