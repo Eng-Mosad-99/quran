@@ -15,5 +15,12 @@ class AppTheme{
     textTheme: TextTheme(
       headlineLarge:AppStyles.bold16White,
     ),
+    appBarTheme: AppBarTheme(
+      backgroundColor: AppColors.blackDetailsBgColor,
+      centerTitle: true,
+      iconTheme: IconThemeData(
+        color: AppColors.primaryColor,
+      ),
+    ),
   );
  }
