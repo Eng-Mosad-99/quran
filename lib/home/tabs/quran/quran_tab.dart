@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:quran/home/tabs/quran/details/sura_details_screen1.dart';
 import 'package:quran/home/tabs/quran/quran_resources.dart';
 import 'package:quran/home/tabs/quran/details/sura_details_screen.dart';
+import 'package:quran/main.dart';
 import 'package:quran/utils/app_assets.dart';
 import 'package:quran/utils/app_colors.dart';
 import 'package:quran/utils/app_styles.dart';
-
 import 'sura_list_widget.dart';
 
-class QuranTab extends StatelessWidget {
+class QuranTab extends StatefulWidget {
   const QuranTab({super.key});
+
+  @override
+  State<QuranTab> createState() => _QuranTabState();
+}
+
+class _QuranTabState extends State<QuranTab> {
+  List<int> filterIndecesList = List.generate(114, (index) => index);
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +27,10 @@ class QuranTab extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextField(
+            style: AppStyles.bold20White,
+            onChanged: (newText) {
+              filterListByNewText(newText);
+            },
             decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -82,22 +92,54 @@ class QuranTab extends StatelessWidget {
           Text('Suras List', style: AppStyles.bold16White),
           SizedBox(height: height * .01),
           Expanded(
-            child: ListView.separated(
-              padding: EdgeInsets.zero,
-              itemBuilder: (context, index) => InkWell(
-                  onTap: (){
-                    Navigator.pushNamed(context, SuraDetailsScreen.routeName,
-                    arguments: index,);
-                  },
-                  child: SuraListWidget(index: index)),
-              separatorBuilder: (context, index) {
-                return Divider(endIndent: width * .1, indent: width * .1);
-              },
-              itemCount: QuranResources.versesNumberList.length,
-            ),
+            child:
+                filterIndecesList.isEmpty
+                    ? Center(
+                      child: Text(
+                        'There is No Sura Found',
+                        style: AppStyles.bold20White,
+                      ),
+                    )
+                    : ListView.separated(
+                      padding: EdgeInsets.zero,
+                      itemBuilder:
+                          (context, index) => InkWell(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                SuraDetailsScreen.routeName,
+                                arguments: filterIndecesList[index],
+                              );
+                            },
+                            child: SuraListWidget(
+                              index: filterIndecesList[index],
+                            ),
+                          ),
+                      separatorBuilder: (context, index) {
+                        return Divider(
+                          endIndent: width * .1,
+                          indent: width * .1,
+                        );
+                      },
+                      itemCount: filterIndecesList.length,
+                    ),
           ),
         ],
       ),
     );
+  }
+
+  void filterListByNewText(String newText) {
+    List<int> filterResultList = []; //=> search result
+    for (int i = 0; i < QuranResources.arabicQuranList.length; i++) {
+      if(QuranResources.arabicQuranList[i].toLowerCase().contains(newText.toLowerCase())){
+        filterResultList.add(i);
+      }else if(QuranResources.englishQuranList[i].toLowerCase().contains(newText.toLowerCase())){
+        filterResultList.add(i);
+      }
+      setState(() {
+        filterIndecesList = filterResultList;
+      });
+    }
   }
 }
