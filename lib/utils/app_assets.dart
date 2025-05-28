@@ -15,5 +15,8 @@ class AppAssets {
   static const String searchIcon ='assets/images/search_icon.png';
   static const String mostRecentlyImg = 'assets/images/most_recently_img.png';
   static const String suraNumberVector = 'assets/images/sura_number_vector.png';
+  static const String detailsBottomImage = 'assets/images/details_bottom_image.png';
+  static const String detailsRightImage = 'assets/images/details_right_image.png';
+  static const String detailsLeftImage = 'assets/images/details_left_image.png';
 
 }
